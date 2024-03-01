@@ -1,16 +1,16 @@
 import 'package:coworking/HomeScreen/home_screen.dart';
-import 'package:coworking/login_page/registration_page.dart';
+import 'package:coworking/login_page/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class RegistrationPage extends StatefulWidget {
+  const RegistrationPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegistrationPage> createState() => _RegistrationPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegistrationPageState extends State<RegistrationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,12 +20,11 @@ class _LoginPageState extends State<LoginPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(
-              height: 89,
+              height: 90,
             ),
-            Center(child: Image.asset('assets/df_Icon_small.png')),
             Center(
               child: Text(
-                'Co-working',
+                'Create an Account',
                 style: GoogleFonts.poppins(
                   fontWeight: FontWeight.w400,
                   fontSize: 24,
@@ -33,11 +32,8 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
             ),
-            const SizedBox(
-              height: 91,
-            ),
             Text(
-              'Mobile number or Email',
+              'Full name',
               style: GoogleFonts.poppins(
                 fontWeight: FontWeight.w400,
                 fontSize: 16,
@@ -56,7 +52,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             Text(
-              'Password',
+              'Mobile number',
               style: GoogleFonts.poppins(
                 fontWeight: FontWeight.w400,
                 fontSize: 16,
@@ -67,29 +63,44 @@ class _LoginPageState extends State<LoginPage> {
               padding: const EdgeInsets.only(top: 10, bottom: 24),
               child: TextField(
                 decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    fillColor: const Color.fromRGBO(218, 218, 218, 1),
-                    suffixIcon: Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: Image.asset('assets/mdi_eye.png'),
-                    )),
+                  fillColor: const Color.fromRGBO(218, 218, 218, 1),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
               ),
+            ),
+            Text(
+              'Email ID',
+              style: GoogleFonts.poppins(
+                fontWeight: FontWeight.w400,
+                fontSize: 16,
+                color: const Color.fromRGBO(73, 73, 73, 1),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 10, bottom: 24),
+              child: TextField(
+                decoration: InputDecoration(
+                  fillColor: const Color.fromRGBO(218, 218, 218, 1),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 160,
             ),
             Center(
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const HomePage(),
-                    ),
-                  );
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (contex) => const HomePage()));
                 },
                 style: ElevatedButton.styleFrom(fixedSize: const Size(312, 56)),
                 child: Text(
-                  'Log in',
+                  'Create an account',
                   style: GoogleFonts.poppins(
                     fontWeight: FontWeight.w700,
                     fontSize: 16,
@@ -97,12 +108,15 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
             ),
+            const SizedBox(
+              height: 14,
+            ),
             Center(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'New user? ',
+                    'Existing user? ',
                     style: GoogleFonts.poppins(
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
@@ -111,22 +125,21 @@ class _LoginPageState extends State<LoginPage> {
                   GestureDetector(
                     onTap: () {
                       Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const RegistrationPage()),
-                      );
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const LoginPage()));
                     },
                     child: Text(
-                      'Create an account',
+                      'Log In',
                       style: GoogleFonts.poppins(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
                           color: const Color.fromRGBO(42, 29, 139, 1)),
                     ),
                   )
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),
