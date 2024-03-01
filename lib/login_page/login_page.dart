@@ -78,7 +78,7 @@ class _LoginPageState extends State<LoginPage> {
             Center(
               child: ElevatedButton(
                 onPressed: () {},
-                style: ElevatedButton.styleFrom(fixedSize: Size(312, 56)),
+                style: ElevatedButton.styleFrom(fixedSize: const Size(312, 56)),
                 child: const Text('Log in'),
               ),
             ),
@@ -89,12 +89,16 @@ class _LoginPageState extends State<LoginPage> {
                   Text(
                     'New user? ',
                     style: GoogleFonts.poppins(
-                        fontSize: 14, fontWeight: FontWeight.w400),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color: const Color.fromRGBO(98, 98, 98, 1)),
                   ),
                   Text(
                     'Create an account',
                     style: GoogleFonts.poppins(
-                        fontSize: 16, fontWeight: FontWeight.w500),
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                        color: const Color.fromRGBO(42, 29, 139, 1)),
                   )
                 ],
               ),
