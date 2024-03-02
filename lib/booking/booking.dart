@@ -8,18 +8,7 @@ class BookingPage extends StatefulWidget {
   State<BookingPage> createState() => _BookingPageState();
 }
 
-List<ModelData> list = [
-  ModelData(
-    date: '31 may 2022 at 02:00PM',
-    deskId: 12345,
-    name: 'Supriya Thete',
-  ),
-  ModelData(
-    date: '31 may 2022 at 02:00PM',
-    deskId: 12345,
-    name: 'Supriya Thete',
-  )
-];
+List list = [];
 
 class _BookingPageState extends State<BookingPage> {
   Widget myCard(int index) {

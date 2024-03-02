@@ -25,7 +25,9 @@ class _DeskScreenState extends State<DeskScreen> {
 
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
-      slotsList = data["slots"];
+      setState(() {
+        slotsList = data["slots"];
+      });
     } else {
       print('Error While Fetching Data of Desk Page');
     }
