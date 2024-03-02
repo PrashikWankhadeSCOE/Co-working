@@ -1,11 +1,40 @@
-import 'package:coworking/booking/booking.dart';
+import 'dart:convert';
+
+import 'package:coworking/desk/desk.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
 
-class AvailableDesk extends StatelessWidget {
+List desklist = [];
+
+String? deskSelected;
+
+class AvailableDesk extends StatefulWidget {
   const AvailableDesk({super.key, required this.time, required this.date});
   final String time;
   final String date;
+
+  @override
+  State<AvailableDesk> createState() => _AvailableDeskState();
+}
+
+class _AvailableDeskState extends State<AvailableDesk> {
+  Future<void> fetch() async {
+    final url = Uri.parse(
+        'https://demo0413095.mockable.io/digitalflake/api/get_availability');
+    final response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      desklist = data["availability"];
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetch();
+  }
 
   void myDailogBox(BuildContext context) {
     showDialog(
@@ -46,7 +75,7 @@ class AvailableDesk extends StatelessWidget {
                     width: 67,
                   ),
                   Text(
-                    'Desk 14',
+                    'Desk $deskSelected',
                     style: GoogleFonts.poppins(
                       fontSize: 14,
                       fontWeight: FontWeight.w400,
@@ -68,7 +97,7 @@ class AvailableDesk extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      ': Wed 31 May, 05:00PM-06:00PM',
+                      ': Wed 31 May, $timeSelected',
                       style: GoogleFonts.poppins(
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
@@ -81,12 +110,24 @@ class AvailableDesk extends StatelessWidget {
               Center(
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const BookingPage(),
+                    Navigator.of(context).pop();
+                    Navigator.of(context).pop();
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      backgroundColor: Color.fromRGBO(25, 173, 30, 1),
+                      content: SizedBox(
+                        height: 61,
+                        width: 312,
+                        child: Row(children: [
+                          Icon(
+                            Icons.check_circle,
+                            color: Colors.white,
+                            size: 24,
+                          )
+                        ]),
                       ),
-                    );
+                      closeIconColor: Colors.white,
+                      showCloseIcon: true,
+                    ));
                   },
                   style:
                       ElevatedButton.styleFrom(fixedSize: const Size(159, 34)),
@@ -129,181 +170,32 @@ class AvailableDesk extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 14),
                   child: Text(
-                    "$date, $time",
+                    "${widget.date}, ${widget.time}",
                     style: GoogleFonts.poppins(
                       fontWeight: FontWeight.w400,
                       fontSize: 13,
                     ),
                   ),
                 ),
-                const Wrap(
+                Wrap(
                   spacing: 12,
                   runSpacing: 12,
-                  children: [
-                    Tables(
-                      isbooked: false,
-                      number: 2,
+                  children: List.generate(
+                    desklist.length,
+                    (index) => Tables(
+                      isbooked: desklist[index]["workspace_active"],
+                      number: desklist[index]['workspace_name'],
                     ),
-                    Tables(
-                      isbooked: true,
-                      number: 3,
-                    ),
-                    Tables(
-                      isbooked: false,
-                      number: 4,
-                    ),
-                    Tables(
-                      isbooked: true,
-                      number: 5,
-                    ),
-                    Tables(
-                      isbooked: true,
-                      number: 6,
-                    ),
-                    Tables(
-                      isbooked: true,
-                      number: 7,
-                    ),
-                    Tables(
-                      isbooked: false,
-                      number: 8,
-                    ),
-                    Tables(
-                      isbooked: false,
-                      number: 9,
-                    ),
-                    Tables(
-                      isbooked: false,
-                      number: 10,
-                    ),
-                    Tables(
-                      isbooked: true,
-                      number: 11,
-                    ),
-                    Tables(
-                      isbooked: false,
-                      number: 12,
-                    ),
-                    Tables(
-                      isbooked: false,
-                      number: 13,
-                    ),
-                    Tables(
-                      isbooked: false,
-                      number: 14,
-                    ),
-                    Tables(
-                      isbooked: false,
-                      number: 15,
-                    ),
-                    Tables(
-                      isbooked: false,
-                      number: 16,
-                    ),
-                    Tables(
-                      isbooked: false,
-                      number: 17,
-                    ),
-                    Tables(
-                      isbooked: false,
-                      number: 18,
-                    ),
-                    Tables(
-                      isbooked: false,
-                      number: 19,
-                    ),
-                    Tables(
-                      isbooked: true,
-                      number: 20,
-                    ),
-                    Tables(
-                      isbooked: false,
-                      number: 21,
-                    ),
-                    Tables(
-                      isbooked: false,
-                      number: 22,
-                    ),
-                    Tables(
-                      isbooked: false,
-                      number: 23,
-                    ),
-                    Tables(
-                      isbooked: true,
-                      number: 24,
-                    ),
-                    Tables(
-                      isbooked: false,
-                      number: 25,
-                    ),
-                    Tables(
-                      isbooked: false,
-                      number: 26,
-                    ),
-                    Tables(
-                      isbooked: false,
-                      number: 27,
-                    ),
-                    Tables(
-                      isbooked: true,
-                      number: 28,
-                    ),
-                    Tables(
-                      isbooked: false,
-                      number: 29,
-                    ),
-                    Tables(
-                      isbooked: false,
-                      number: 30,
-                    ),
-                    Tables(
-                      isbooked: false,
-                      number: 31,
-                    ),
-                    Tables(
-                      isbooked: false,
-                      number: 32,
-                    ),
-                    Tables(
-                      isbooked: false,
-                      number: 33,
-                    ),
-                    Tables(
-                      isbooked: false,
-                      number: 34,
-                    ),
-                    Tables(
-                      isbooked: false,
-                      number: 35,
-                    ),
-                    Tables(
-                      isbooked: false,
-                      number: 36,
-                    ),
-                    Tables(
-                      isbooked: false,
-                      number: 37,
-                    ),
-                    Tables(
-                      isbooked: false,
-                      number: 38,
-                    ),
-                    Tables(
-                      isbooked: true,
-                      number: 39,
-                    ),
-                    Tables(
-                      isbooked: false,
-                      number: 40,
-                    ),
-                  ],
+                  ),
                 ),
               ],
             ),
             Center(
               child: ElevatedButton(
                 onPressed: () {
-                  myDailogBox(context);
+                  if (deskSelected != null) {
+                    myDailogBox(context);
+                  }
                 },
                 style: ElevatedButton.styleFrom(fixedSize: const Size(312, 56)),
                 child: Text(
@@ -322,29 +214,59 @@ class AvailableDesk extends StatelessWidget {
   }
 }
 
-class Tables extends StatelessWidget {
+class Tables extends StatefulWidget {
   const Tables({super.key, required this.isbooked, required this.number});
   final bool isbooked;
-  final int number;
+  final String number;
 
   @override
+  State<Tables> createState() => _TablesState();
+}
+
+class _TablesState extends State<Tables> {
+  bool isSelected = false;
+  @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(3),
-        border: Border.all(
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          if (deskSelected == null && !widget.isbooked) {
+            deskSelected = widget.number;
+
+            isSelected = true;
+          }
+        });
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(3),
+          border: Border.all(
             width: 1,
-            color: (!isbooked)
+            color: (!widget.isbooked)
                 ? const Color.fromRGBO(199, 207, 252, 1)
-                : const Color.fromRGBO(227, 227, 227, 1)),
-        color: (isbooked)
-            ? const Color.fromRGBO(227, 227, 227, 1)
-            : const Color.fromRGBO(240, 245, 255, 1),
-      ),
-      height: 42,
-      width: 42,
-      child: Center(
-        child: Text(number.toString()),
+                : const Color.fromRGBO(227, 227, 227, 1),
+          ),
+          color: (!isSelected)
+              ? (widget.isbooked)
+                  ? const Color.fromRGBO(227, 227, 227, 1)
+                  : const Color.fromRGBO(240, 245, 255, 1)
+              : const Color.fromRGBO(77, 96, 209, 1),
+        ),
+        height: 42,
+        width: 42,
+        child: Center(
+          child: Text(
+            widget.number.toString(),
+            style: GoogleFonts.poppins(
+                fontWeight: FontWeight.w400,
+                fontSize: 14,
+                color: (!isSelected)
+                    ? (widget.isbooked)
+                        ? const Color.fromRGBO(246, 246, 246, 1)
+                        : const Color.fromRGBO(91, 97, 128, 1)
+                    : const Color.fromRGBO(246, 246, 246, 1)),
+          ),
+        ),
       ),
     );
   }
