@@ -1,3 +1,4 @@
+import 'package:coworking/available_desk/available_desk.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -7,6 +8,8 @@ class DeskScreen extends StatefulWidget {
   @override
   State<DeskScreen> createState() => _DeskScreenState();
 }
+
+String timeSelected = '10:00AM - 11:00AM';
 
 class _DeskScreenState extends State<DeskScreen> {
   bool isfull = false;
@@ -80,7 +83,17 @@ class _DeskScreenState extends State<DeskScreen> {
               ),
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AvailableDesk(
+                      time: timeSelected,
+                      date: 'Wed 31 May',
+                    ),
+                  ),
+                );
+              },
               style: ElevatedButton.styleFrom(fixedSize: const Size(312, 56)),
               child: Text(
                 'Next',
@@ -112,6 +125,7 @@ class _TimeSlotState extends State<TimeSlot> {
     return GestureDetector(
       onTap: () {
         setState(() {
+          timeSelected = widget.time;
           tapped = true;
         });
       },

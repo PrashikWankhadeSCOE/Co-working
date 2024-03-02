@@ -1,3 +1,4 @@
+import 'package:coworking/booking/booking.dart';
 import 'package:coworking/desk/desk.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -37,7 +38,14 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const BookingPage(),
+                      ),
+                    );
+                  },
                   style: ElevatedButton.styleFrom(
                       backgroundColor: const Color.fromRGBO(81, 103, 235, 1)),
                   child: Text(
@@ -82,23 +90,31 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                 ),
-                Column(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        color: const Color.fromRGBO(77, 96, 209, 1),
-                        borderRadius: BorderRadius.circular(15),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (contex) => const DeskScreen()));
+                  },
+                  child: Column(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          color: const Color.fromRGBO(77, 96, 209, 1),
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        height: 147,
+                        width: 147,
+                        child: Image.asset('assets/meeting_room.png'),
                       ),
-                      height: 147,
-                      width: 147,
-                      child: Image.asset('assets/meeting_room.png'),
-                    ),
-                    Text(
-                      'Meeting room',
-                      style: GoogleFonts.poppins(
-                          fontSize: 20, fontWeight: FontWeight.w400),
-                    ),
-                  ],
+                      Text(
+                        'Meeting room',
+                        style: GoogleFonts.poppins(
+                            fontSize: 20, fontWeight: FontWeight.w400),
+                      ),
+                    ],
+                  ),
                 )
               ],
             )
