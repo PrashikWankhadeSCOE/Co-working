@@ -20,6 +20,29 @@ class AvailableDesk extends StatefulWidget {
 }
 
 class _AvailableDeskState extends State<AvailableDesk> {
+  String dataSubmittedmessage = "Data not recieved";
+  Future<void> pushData() async {
+    final url = Uri.parse(
+        "https://demo0413095.mockable.io/digitalflake/api/confirm_booking");
+
+    final body = jsonEncode({
+      '"workspace_id"': '$deskId',
+      'name': 'Supriya Thete',
+      "booked_on": "$timeSelected"
+    });
+    final response = await http.post(url, body: body);
+    if (response.statusCode == 200) {
+      setState(() {
+        print('set state in home');
+        final data = json.decode(response.body);
+        dataSubmittedmessage = data['message'];
+        print(data["message"]);
+      });
+    } else {
+      print('Hata: ${response.statusCode}');
+    }
+  }
+
   Future<void> fetch() async {
     final url = Uri.parse(
         'https://demo0413095.mockable.io/digitalflake/api/get_availability');
@@ -27,7 +50,9 @@ class _AvailableDeskState extends State<AvailableDesk> {
 
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
-      desklist = data["availability"];
+      setState(() {
+        desklist = data["availability"];
+      });
     }
   }
 
@@ -113,21 +138,74 @@ class _AvailableDeskState extends State<AvailableDesk> {
                   onPressed: () {
                     Navigator.of(context).pop();
                     Navigator.of(context).pop();
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      backgroundColor: Color.fromRGBO(25, 173, 30, 1),
-                      content: SizedBox(
-                        height: 61,
-                        width: 312,
-                        child: Row(children: [
-                          Icon(
-                            Icons.check_circle,
-                            color: Colors.white,
-                            size: 24,
-                          )
-                        ]),
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      // margin: const EdgeInsets.all(8),
+                      backgroundColor: const Color.fromRGBO(255, 255, 255, 1),
+                      content: Container(
+                        // margin: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: const Color.fromRGBO(25, 173, 30, 1),
+                        ),
+                        // width: 312,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            const Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Icon(
+                                Icons.check_circle,
+                                color: Colors.white,
+                                size: 24,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  (dataSubmittedmessage == "Data not recieved")
+                                      ? Text(
+                                          'Error',
+                                          style: GoogleFonts.poppins(
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 12,
+                                            color: const Color.fromRGBO(
+                                                255, 255, 255, 1),
+                                          ),
+                                        )
+                                      : Text(
+                                          'Success',
+                                          style: GoogleFonts.poppins(
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 12,
+                                            color: const Color.fromRGBO(
+                                                255, 255, 255, 1),
+                                          ),
+                                        ),
+                                  Text(
+                                    dataSubmittedmessage,
+                                    style: GoogleFonts.poppins(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 12,
+                                      color: const Color.fromRGBO(
+                                          255, 255, 255, 1),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: () {},
+                              child: const Icon(
+                                Icons.close,
+                                color: Colors.white,
+                                size: 24,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                      closeIconColor: Colors.white,
-                      showCloseIcon: true,
                     ));
                   },
                   style:
@@ -196,6 +274,7 @@ class _AvailableDeskState extends State<AvailableDesk> {
                 onPressed: () {
                   if (deskSelected != null) {
                     setState(() {
+                      pushData();
                       myDailogBox(context);
                     });
                   } else {
