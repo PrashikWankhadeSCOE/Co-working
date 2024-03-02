@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 List desklist = [];
 
 String? deskSelected;
+int deskId = -1;
 
 class AvailableDesk extends StatefulWidget {
   const AvailableDesk({super.key, required this.time, required this.date});
@@ -64,7 +65,7 @@ class _AvailableDeskState extends State<AvailableDesk> {
                     ),
                   ),
                   Text(
-                    ': 123456',
+                    ': $deskId',
                     style: GoogleFonts.poppins(
                       fontSize: 14,
                       fontWeight: FontWeight.w400,
@@ -183,9 +184,9 @@ class _AvailableDeskState extends State<AvailableDesk> {
                   children: List.generate(
                     desklist.length,
                     (index) => Tables(
-                      isbooked: desklist[index]["workspace_active"],
-                      number: desklist[index]['workspace_name'],
-                    ),
+                        isbooked: desklist[index]["workspace_active"],
+                        number: desklist[index]['workspace_name'],
+                        id: desklist[index]['workspace_id']),
                   ),
                 ),
               ],
@@ -219,9 +220,14 @@ class _AvailableDeskState extends State<AvailableDesk> {
 }
 
 class Tables extends StatefulWidget {
-  const Tables({super.key, required this.isbooked, required this.number});
+  const Tables(
+      {super.key,
+      required this.isbooked,
+      required this.number,
+      required this.id});
   final bool isbooked;
   final String number;
+  final int id;
 
   @override
   State<Tables> createState() => _TablesState();
@@ -236,6 +242,7 @@ class _TablesState extends State<Tables> {
         setState(() {
           if (deskSelected == null && !widget.isbooked) {
             deskSelected = widget.number;
+            deskId = widget.id;
             isSelected = true;
           }
         });
