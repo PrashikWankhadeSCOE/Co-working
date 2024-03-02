@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:coworking/available_desk/available_desk.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
 
 class DeskScreen extends StatefulWidget {
   const DeskScreen({super.key});
@@ -9,10 +12,32 @@ class DeskScreen extends StatefulWidget {
   State<DeskScreen> createState() => _DeskScreenState();
 }
 
+List slotsList = [];
+
 String timeSelected = '10:00AM - 11:00AM';
 
 class _DeskScreenState extends State<DeskScreen> {
+  Future<void> fetchData() async {
+    final url = Uri.parse(
+      'https://demo0413095.mockable.io/digitalflake/api/get_slots',
+    );
+    final response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      slotsList = data["slots"];
+    } else {
+      print('Error While Fetching Data of Desk Page');
+    }
+  }
+
   bool isfull = false;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,58 +58,23 @@ class _DeskScreenState extends State<DeskScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Center(
+            Center(
               child: Wrap(
                 crossAxisAlignment: WrapCrossAlignment.center,
                 runSpacing: 10,
                 spacing: 8,
-                children: [
-                  TimeSlot(
-                    isfull: true,
-                    time: '10:00AM - 11:00AM',
+                children: List.generate(
+                  slotsList.length,
+                  (index) => TimeSlot(
+                    isfull: slotsList[index]["slot_active"],
+                    time: slotsList[index]["slot_name"],
                   ),
-                  TimeSlot(
-                    isfull: true,
-                    time: '11:00AM - 12:00PM',
-                  ),
-                  TimeSlot(
-                    isfull: false,
-                    time: '01:00PM - 02:00PM',
-                  ),
-                  TimeSlot(
-                    isfull: true,
-                    time: '02:00PM - 03:00PM',
-                  ),
-                  TimeSlot(
-                    isfull: false,
-                    time: '04:00PM - 05:00PM',
-                  ),
-                  TimeSlot(
-                    isfull: false,
-                    time: '05:00PM - 06:00PM',
-                  ),
-                  TimeSlot(
-                    isfull: true,
-                    time: '06:00PM - 07:00PM',
-                  ),
-                  TimeSlot(
-                    isfull: false,
-                    time: '07:00PM - 08:00PM',
-                  ),
-                  TimeSlot(
-                    isfull: false,
-                    time: '08:00PM - 09:00PM',
-                  ),
-                  TimeSlot(
-                    isfull: true,
-                    time: '09:00PM - 10:00PM',
-                  ),
-                ],
+                ),
               ),
             ),
             ElevatedButton(
               onPressed: () {
-                Navigator.push(
+                Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
                     builder: (context) => AvailableDesk(
@@ -133,7 +123,9 @@ class _TimeSlotState extends State<TimeSlot> {
         decoration: BoxDecoration(
           border: Border.all(
             width: 1,
-            color: const Color.fromRGBO(199, 207, 252, 1),
+            color: (!widget.isfull)
+                ? const Color.fromRGBO(199, 207, 252, 1)
+                : const Color.fromRGBO(227, 227, 227, 1),
           ),
           borderRadius: BorderRadius.circular(4),
           color: (!tapped)
