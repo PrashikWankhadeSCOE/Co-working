@@ -66,10 +66,17 @@ class _HomePageState extends State<HomePage> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (contex) => const DeskScreen()));
+                    setState(
+                      () {
+                        timeSelected = null;
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (contex) => const DeskScreen(),
+                          ),
+                        );
+                      },
+                    );
                   },
                   child: Column(
                     children: [
@@ -92,10 +99,17 @@ class _HomePageState extends State<HomePage> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (contex) => const DeskScreen()));
+                    setState(
+                      () {
+                        timeSelected = null;
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (contex) => const DeskScreen(),
+                          ),
+                        );
+                      },
+                    );
                   },
                   child: Column(
                     children: [

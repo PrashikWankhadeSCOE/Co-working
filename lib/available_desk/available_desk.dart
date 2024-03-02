@@ -194,7 +194,11 @@ class _AvailableDeskState extends State<AvailableDesk> {
               child: ElevatedButton(
                 onPressed: () {
                   if (deskSelected != null) {
-                    myDailogBox(context);
+                    setState(() {
+                      myDailogBox(context);
+                    });
+                  } else {
+                    setState(() {});
                   }
                 },
                 style: ElevatedButton.styleFrom(fixedSize: const Size(312, 56)),
@@ -232,7 +236,6 @@ class _TablesState extends State<Tables> {
         setState(() {
           if (deskSelected == null && !widget.isbooked) {
             deskSelected = widget.number;
-
             isSelected = true;
           }
         });

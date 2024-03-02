@@ -14,7 +14,7 @@ class DeskScreen extends StatefulWidget {
 
 List slotsList = [];
 
-String timeSelected = '10:00AM - 11:00AM';
+String? timeSelected;
 
 class _DeskScreenState extends State<DeskScreen> {
   Future<void> fetchData() async {
@@ -74,15 +74,20 @@ class _DeskScreenState extends State<DeskScreen> {
             ),
             ElevatedButton(
               onPressed: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => AvailableDesk(
-                      time: timeSelected,
-                      date: 'Wed 31 May',
-                    ),
-                  ),
-                );
+                (timeSelected != null)
+                    ? setState(() {
+                        deskSelected = null;
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => AvailableDesk(
+                              time: timeSelected!,
+                              date: 'Wed 31 May',
+                            ),
+                          ),
+                        );
+                      })
+                    : setState(() {});
               },
               style: ElevatedButton.styleFrom(fixedSize: const Size(312, 56)),
               child: Text(
@@ -115,8 +120,10 @@ class _TimeSlotState extends State<TimeSlot> {
     return GestureDetector(
       onTap: () {
         setState(() {
-          timeSelected = widget.time;
-          tapped = true;
+          if (timeSelected == null && !widget.isfull) {
+            timeSelected = widget.time;
+            tapped = true;
+          }
         });
       },
       child: Container(
