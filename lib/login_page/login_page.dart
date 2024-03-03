@@ -119,164 +119,154 @@ class _LoginPageState extends State<LoginPage> {
         child: Padding(
           padding: const EdgeInsets.all(24),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(
-                    height: 89,
-                  ),
-                  Center(child: Image.asset('assets/df_Icon_small.png')),
-                  Center(
-                    child: Text(
-                      'Co-working',
-                      style: GoogleFonts.poppins(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 24,
-                        color: const Color.fromRGBO(0, 0, 0, 1),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 91,
-                  ),
-                  Text(
-                    'Mobile number or Email',
-                    style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 16,
-                      color: const Color.fromRGBO(73, 73, 73, 1),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10, bottom: 24),
-                    child: TextFormField(
-                      controller: emailController,
-                      decoration: InputDecoration(
-                        fillColor: const Color.fromRGBO(218, 218, 218, 1),
-                        filled: true,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter data ';
-                        } else if (!value.contains('@')) {
-                          return 'Email address must contain @';
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
-                  Text(
-                    'Password',
-                    style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 16,
-                      color: const Color.fromRGBO(73, 73, 73, 1),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10, bottom: 24),
-                    child: TextFormField(
-                      obscureText: hide,
-                      controller: passwordController,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return "Password cannot be empty";
-                        }
-                        return null;
-                      },
-                      decoration: InputDecoration(
-                        fillColor: const Color.fromRGBO(218, 218, 218, 1),
-                        filled: true,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        suffixIcon: GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              hide = !hide;
-                            });
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.all(16),
-                            child: Image.asset('assets/mdi_eye.png'),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+              const SizedBox(
+                height: 89,
               ),
-              Column(
-                children: [
-                  Center(
-                    child: ElevatedButton(
-                      onPressed: () {
+              Center(child: Image.asset('assets/df_Icon_small.png')),
+              Center(
+                child: Text(
+                  'Co-working',
+                  style: GoogleFonts.poppins(
+                    fontWeight: FontWeight.w400,
+                    fontSize: 24,
+                    color: const Color.fromRGBO(0, 0, 0, 1),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 91,
+              ),
+              Text(
+                'Mobile number or Email',
+                style: GoogleFonts.poppins(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 16,
+                  color: const Color.fromRGBO(73, 73, 73, 1),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 10, bottom: 24),
+                child: TextFormField(
+                  controller: emailController,
+                  decoration: InputDecoration(
+                    fillColor: const Color.fromRGBO(218, 218, 218, 1),
+                    filled: true,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter data ';
+                    } else if (!value.contains('@')) {
+                      return 'Email address must contain @';
+                    }
+                    return null;
+                  },
+                ),
+              ),
+              Text(
+                'Password',
+                style: GoogleFonts.poppins(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 16,
+                  color: const Color.fromRGBO(73, 73, 73, 1),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 10, bottom: 24),
+                child: TextFormField(
+                  obscureText: hide,
+                  controller: passwordController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Password cannot be empty";
+                    }
+                    return null;
+                  },
+                  decoration: InputDecoration(
+                    fillColor: const Color.fromRGBO(218, 218, 218, 1),
+                    filled: true,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    suffixIcon: GestureDetector(
+                      onTap: () {
                         setState(() {
-                          fetch();
+                          hide = !hide;
                         });
-                        if (formkey.currentState!.validate()) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const HomePage(),
-                            ),
-                          );
-
-                          emailController.clear();
-                          passwordController.clear();
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(snackbar());
-                        } else {}
                       },
-                      style: ElevatedButton.styleFrom(
-                          fixedSize: const Size(312, 56)),
-                      child: Text(
-                        'Log in',
-                        style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 16,
-                        ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Image.asset('assets/mdi_eye.png'),
                       ),
                     ),
                   ),
-                  Center(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'New user? ',
-                          style: GoogleFonts.poppins(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                              color: const Color.fromRGBO(98, 98, 98, 1)),
+                ),
+              ),
+              const Spacer(),
+              Center(
+                child: ElevatedButton(
+                  onPressed: () {
+                    if (formkey.currentState!.validate()) {
+                      setState(() {
+                        fetch();
+                      });
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const HomePage(),
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const RegistrationPage()),
-                            );
-                          },
-                          child: Text(
-                            'Create an account',
-                            style: GoogleFonts.poppins(
-                                decoration: TextDecoration.underline,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                                color: const Color.fromRGBO(42, 29, 139, 1)),
-                          ),
-                        )
-                      ],
+                      );
+
+                      emailController.clear();
+                      passwordController.clear();
+                      ScaffoldMessenger.of(context).showSnackBar(snackbar());
+                    }
+                  },
+                  style:
+                      ElevatedButton.styleFrom(fixedSize: const Size(312, 56)),
+                  child: Text(
+                    'Log in',
+                    style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 16,
                     ),
-                  )
-                ],
+                  ),
+                ),
+              ),
+              Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'New user? ',
+                      style: GoogleFonts.poppins(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: const Color.fromRGBO(98, 98, 98, 1)),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const RegistrationPage()),
+                        );
+                      },
+                      child: Text(
+                        'Create an account',
+                        style: GoogleFonts.poppins(
+                            decoration: TextDecoration.underline,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: const Color.fromRGBO(42, 29, 139, 1)),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ],
           ),
