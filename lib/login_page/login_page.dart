@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:coworking/HomeScreen/home_screen.dart';
 import 'package:coworking/login_page/registration_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -11,6 +14,101 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  String message = 'Error Occured while Authentication !';
+
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
+  Future<void> fetch() async {
+    final url =
+        Uri.parse('https://demo0413095.mockable.io/digitalflake/api/login');
+    final body = jsonEncode({
+      'email': emailController.text,
+      'password': passwordController.text,
+    });
+    final response = await http.post(url, body: body);
+    if (response.statusCode == 200) {
+      setState(() {
+        final data = jsonDecode(response.body);
+        message = data['message'];
+      });
+    } else {}
+  }
+
+  // Snackbar which will show the message that will come if data is posted succesfully
+  SnackBar snackbar([String? data]) {
+    if (data != null && data.isNotEmpty) {
+      message = data;
+    }
+    return SnackBar(
+      // margin: const EdgeInsets.all(8),
+      backgroundColor: const Color.fromRGBO(255, 255, 255, 1),
+      content: Container(
+        // margin: EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          color: const Color.fromRGBO(25, 173, 30, 1),
+        ),
+        // width: 312,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Icon(
+                Icons.check_circle,
+                color: Colors.white,
+                size: 24,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  (message == "Error Occured while Authentication !" ||
+                          message == 'Please fill proper data')
+                      ? Text(
+                          'Error',
+                          style: GoogleFonts.poppins(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 12,
+                            color: const Color.fromRGBO(255, 255, 255, 1),
+                          ),
+                        )
+                      : Text(
+                          'Success',
+                          style: GoogleFonts.poppins(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 12,
+                            color: const Color.fromRGBO(255, 255, 255, 1),
+                          ),
+                        ),
+                  Text(
+                    message,
+                    style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 12,
+                      color: const Color.fromRGBO(255, 255, 255, 1),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            GestureDetector(
+              onTap: () {},
+              child: const Icon(
+                Icons.close,
+                color: Colors.white,
+                size: 24,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,6 +148,7 @@ class _LoginPageState extends State<LoginPage> {
                 Padding(
                   padding: const EdgeInsets.only(top: 10, bottom: 24),
                   child: TextField(
+                    controller: emailController,
                     decoration: InputDecoration(
                       fillColor: const Color.fromRGBO(218, 218, 218, 1),
                       filled: true,
@@ -70,16 +169,23 @@ class _LoginPageState extends State<LoginPage> {
                 Padding(
                   padding: const EdgeInsets.only(top: 10, bottom: 24),
                   child: TextField(
+                    controller: passwordController,
+                    onSubmitted: (value) {
+                      setState(() {
+                        fetch();
+                      });
+                    },
                     decoration: InputDecoration(
-                        fillColor: const Color.fromRGBO(218, 218, 218, 1),
-                        filled: true,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        suffixIcon: Padding(
-                          padding: const EdgeInsets.all(16),
-                          child: Image.asset('assets/mdi_eye.png'),
-                        )),
+                      fillColor: const Color.fromRGBO(218, 218, 218, 1),
+                      filled: true,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      suffixIcon: Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Image.asset('assets/mdi_eye.png'),
+                      ),
+                    ),
                   ),
                 ),
               ],
@@ -89,12 +195,26 @@ class _LoginPageState extends State<LoginPage> {
                 Center(
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const HomePage(),
-                        ),
-                      );
+                      if (emailController.text.contains('@') &&
+                          emailController.text.isNotEmpty &&
+                          passwordController.text.isNotEmpty) {
+                        setState(() {
+                          fetch();
+                        });
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const HomePage(),
+                          ),
+                        );
+                        setState(() {
+                          fetch();
+                        });
+                        ScaffoldMessenger.of(context).showSnackBar(snackbar());
+                      } else {
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(snackbar('Please fill proper data'));
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                         fixedSize: const Size(312, 56)),
