@@ -17,116 +17,129 @@ class _LoginPageState extends State<LoginPage> {
       body: Padding(
         padding: const EdgeInsets.all(24),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const SizedBox(
-              height: 89,
-            ),
-            Center(child: Image.asset('assets/df_Icon_small.png')),
-            Center(
-              child: Text(
-                'Co-working',
-                style: GoogleFonts.poppins(
-                  fontWeight: FontWeight.w400,
-                  fontSize: 24,
-                  color: const Color.fromRGBO(0, 0, 0, 1),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(
+                  height: 89,
                 ),
-              ),
-            ),
-            const SizedBox(
-              height: 91,
-            ),
-            Text(
-              'Mobile number or Email',
-              style: GoogleFonts.poppins(
-                fontWeight: FontWeight.w400,
-                fontSize: 16,
-                color: const Color.fromRGBO(73, 73, 73, 1),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 10, bottom: 24),
-              child: TextField(
-                decoration: InputDecoration(
-                  fillColor: const Color.fromRGBO(218, 218, 218, 1),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-              ),
-            ),
-            Text(
-              'Password',
-              style: GoogleFonts.poppins(
-                fontWeight: FontWeight.w400,
-                fontSize: 16,
-                color: const Color.fromRGBO(73, 73, 73, 1),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 10, bottom: 24),
-              child: TextField(
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    fillColor: const Color.fromRGBO(218, 218, 218, 1),
-                    suffixIcon: Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: Image.asset('assets/mdi_eye.png'),
-                    )),
-              ),
-            ),
-            Center(
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const HomePage(),
-                    ),
-                  );
-                },
-                style: ElevatedButton.styleFrom(fixedSize: const Size(312, 56)),
-                child: Text(
-                  'Log in',
-                  style: GoogleFonts.poppins(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 16,
-                  ),
-                ),
-              ),
-            ),
-            Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'New user? ',
+                Center(child: Image.asset('assets/df_Icon_small.png')),
+                Center(
+                  child: Text(
+                    'Co-working',
                     style: GoogleFonts.poppins(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        color: const Color.fromRGBO(98, 98, 98, 1)),
+                      fontWeight: FontWeight.w400,
+                      fontSize: 24,
+                      color: const Color.fromRGBO(0, 0, 0, 1),
+                    ),
                   ),
-                  GestureDetector(
-                    onTap: () {
+                ),
+                const SizedBox(
+                  height: 91,
+                ),
+                Text(
+                  'Mobile number or Email',
+                  style: GoogleFonts.poppins(
+                    fontWeight: FontWeight.w400,
+                    fontSize: 16,
+                    color: const Color.fromRGBO(73, 73, 73, 1),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10, bottom: 24),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      fillColor: const Color.fromRGBO(218, 218, 218, 1),
+                      filled: true,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                  ),
+                ),
+                Text(
+                  'Password',
+                  style: GoogleFonts.poppins(
+                    fontWeight: FontWeight.w400,
+                    fontSize: 16,
+                    color: const Color.fromRGBO(73, 73, 73, 1),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10, bottom: 24),
+                  child: TextField(
+                    decoration: InputDecoration(
+                        fillColor: const Color.fromRGBO(218, 218, 218, 1),
+                        filled: true,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        suffixIcon: Padding(
+                          padding: const EdgeInsets.all(16),
+                          child: Image.asset('assets/mdi_eye.png'),
+                        )),
+                  ),
+                ),
+              ],
+            ),
+            Column(
+              children: [
+                Center(
+                  child: ElevatedButton(
+                    onPressed: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const RegistrationPage()),
+                          builder: (context) => const HomePage(),
+                        ),
                       );
                     },
+                    style: ElevatedButton.styleFrom(
+                        fixedSize: const Size(312, 56)),
                     child: Text(
-                      'Create an account',
+                      'Log in',
                       style: GoogleFonts.poppins(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                          color: const Color.fromRGBO(42, 29, 139, 1)),
+                        fontWeight: FontWeight.w700,
+                        fontSize: 16,
+                      ),
                     ),
-                  )
-                ],
-              ),
-            )
+                  ),
+                ),
+                Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'New user? ',
+                        style: GoogleFonts.poppins(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            color: const Color.fromRGBO(98, 98, 98, 1)),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const RegistrationPage()),
+                          );
+                        },
+                        child: Text(
+                          'Create an account',
+                          style: GoogleFonts.poppins(
+                              decoration: TextDecoration.underline,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                              color: const Color.fromRGBO(42, 29, 139, 1)),
+                        ),
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
           ],
         ),
       ),

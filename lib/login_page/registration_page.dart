@@ -17,128 +17,142 @@ class _RegistrationPageState extends State<RegistrationPage> {
       body: Padding(
         padding: const EdgeInsets.all(24),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const SizedBox(
-              height: 90,
-            ),
-            Center(
-              child: Text(
-                'Create an Account',
-                style: GoogleFonts.poppins(
-                  fontWeight: FontWeight.w400,
-                  fontSize: 24,
-                  color: const Color.fromRGBO(0, 0, 0, 1),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(
+                  height: 90,
                 ),
-              ),
-            ),
-            Text(
-              'Full name',
-              style: GoogleFonts.poppins(
-                fontWeight: FontWeight.w400,
-                fontSize: 16,
-                color: const Color.fromRGBO(73, 73, 73, 1),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 10, bottom: 24),
-              child: TextField(
-                decoration: InputDecoration(
-                  fillColor: const Color.fromRGBO(218, 218, 218, 1),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-              ),
-            ),
-            Text(
-              'Mobile number',
-              style: GoogleFonts.poppins(
-                fontWeight: FontWeight.w400,
-                fontSize: 16,
-                color: const Color.fromRGBO(73, 73, 73, 1),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 10, bottom: 24),
-              child: TextField(
-                decoration: InputDecoration(
-                  fillColor: const Color.fromRGBO(218, 218, 218, 1),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-              ),
-            ),
-            Text(
-              'Email ID',
-              style: GoogleFonts.poppins(
-                fontWeight: FontWeight.w400,
-                fontSize: 16,
-                color: const Color.fromRGBO(73, 73, 73, 1),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 10, bottom: 24),
-              child: TextField(
-                decoration: InputDecoration(
-                  fillColor: const Color.fromRGBO(218, 218, 218, 1),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 160,
-            ),
-            Center(
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (contex) => const HomePage()));
-                },
-                style: ElevatedButton.styleFrom(fixedSize: const Size(312, 56)),
-                child: Text(
-                  'Create an account',
+                Text(
+                  'Create an Account',
                   style: GoogleFonts.poppins(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 24,
+                    color: const Color.fromRGBO(0, 0, 0, 1),
                   ),
                 ),
-              ),
-            ),
-            const SizedBox(
-              height: 14,
-            ),
-            Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Existing user? ',
-                    style: GoogleFonts.poppins(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        color: const Color.fromRGBO(98, 98, 98, 1)),
+                const SizedBox(
+                  height: 58,
+                ),
+                Text(
+                  'Full name',
+                  style: GoogleFonts.poppins(
+                    fontWeight: FontWeight.w400,
+                    fontSize: 16,
+                    color: const Color.fromRGBO(73, 73, 73, 1),
                   ),
-                  GestureDetector(
-                    onTap: () {
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10, bottom: 24),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      fillColor: const Color.fromRGBO(218, 218, 218, 1),
+                      filled: true,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                  ),
+                ),
+                Text(
+                  'Mobile number',
+                  style: GoogleFonts.poppins(
+                    fontWeight: FontWeight.w400,
+                    fontSize: 16,
+                    color: const Color.fromRGBO(73, 73, 73, 1),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10, bottom: 24),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: const Color.fromRGBO(218, 218, 218, 1),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                  ),
+                ),
+                Text(
+                  'Email ID',
+                  style: GoogleFonts.poppins(
+                    fontWeight: FontWeight.w400,
+                    fontSize: 16,
+                    color: const Color.fromRGBO(73, 73, 73, 1),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10, bottom: 24),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      fillColor: const Color.fromRGBO(218, 218, 218, 1),
+                      filled: true,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Column(
+              children: [
+                Center(
+                  child: ElevatedButton(
+                    onPressed: () {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const LoginPage()));
+                              builder: (contex) => const HomePage()));
                     },
+                    style: ElevatedButton.styleFrom(
+                        fixedSize: const Size(312, 56)),
                     child: Text(
-                      'Log In',
+                      'Create an account',
                       style: GoogleFonts.poppins(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: const Color.fromRGBO(42, 29, 139, 1)),
+                        fontWeight: FontWeight.w700,
+                        fontSize: 16,
+                      ),
                     ),
-                  )
-                ],
-              ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 14,
+                ),
+                Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Existing user? ',
+                        style: GoogleFonts.poppins(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            color: const Color.fromRGBO(98, 98, 98, 1)),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const LoginPage()));
+                        },
+                        child: Text(
+                          'Log In',
+                          style: GoogleFonts.poppins(
+                              decoration: TextDecoration.underline,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                              color: const Color.fromRGBO(42, 29, 139, 1)),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ],
             ),
           ],
         ),
