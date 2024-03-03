@@ -185,14 +185,3 @@ class _BookingPageState extends State<BookingPage> {
     );
   }
 }
-
-class ModelData {
-  final int deskId;
-  final String name;
-  final String date;
-  ModelData({
-    required this.date,
-    required this.deskId,
-    required this.name,
-  });
-}
