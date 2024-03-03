@@ -107,17 +107,15 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         bool isNumeric(String str) {
                           try {
                             double.parse(str);
+                            return true;
                           } on FormatException {
                             return false;
-                          } finally {
-                            return true;
                           }
                         }
 
                         if (value!.length != 10) {
                           return 'Mobile no should be 10 digits';
-                        }
-                        if (isNumeric(value)) {
+                        } else if (!isNumeric(value)) {
                           return 'Should contain Digits only';
                         }
                         return null;
