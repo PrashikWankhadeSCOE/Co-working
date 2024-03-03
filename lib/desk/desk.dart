@@ -5,9 +5,11 @@ import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 
 class DeskScreen extends StatefulWidget {
-  const DeskScreen({super.key});
+  const DeskScreen({super.key, required this.calledFrom});
+  final int calledFrom;
 
   @override
   State<DeskScreen> createState() => _DeskScreenState();
@@ -34,6 +36,8 @@ class _DeskScreenState extends State<DeskScreen> {
 
   bool isfull = false;
 
+  String formattedDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
+
   @override
   void initState() {
     super.initState();
@@ -57,8 +61,7 @@ class _DeskScreenState extends State<DeskScreen> {
       body: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
-          Container(
-            color: Colors.amber,
+          const SizedBox(
             height: 10,
           ),
           EasyInfiniteDateTimeLine(
@@ -66,53 +69,52 @@ class _DeskScreenState extends State<DeskScreen> {
             focusDate: DateTime.now(),
             lastDate: DateTime(2024, 12, 31),
             onDateChange: (selectedDate) {
-              setState(() {});
+              setState(() {
+                formattedDate = DateFormat('yyyy-MM-dd').format(selectedDate);
+              });
             },
           ),
           Padding(
             padding: const EdgeInsets.all(24),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                SizedBox(
-                  child: Wrap(
-                    runSpacing: 10,
-                    spacing: 8,
-                    children: List.generate(
-                      slotsList.length,
-                      (index) => TimeSlot(
-                        isfull: slotsList[index]["slot_active"],
-                        time: slotsList[index]["slot_name"],
-                      ),
-                    ),
-                  ),
+            child: Wrap(
+              runSpacing: 10,
+              spacing: 8,
+              children: List.generate(
+                slotsList.length,
+                (index) => TimeSlot(
+                  isfull: slotsList[index]["slot_active"],
+                  time: slotsList[index]["slot_name"],
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    (timeSelected != null)
-                        ? setState(() {
-                            deskSelected = null;
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => AvailableDesk(
-                                  time: timeSelected!,
-                                  date: 'Wed 31 May',
-                                ),
-                              ),
-                            );
-                          })
-                        : setState(() {});
-                  },
-                  style:
-                      ElevatedButton.styleFrom(fixedSize: const Size(312, 56)),
-                  child: Text(
-                    'Next',
-                    style: GoogleFonts.poppins(
-                        fontSize: 16, fontWeight: FontWeight.w700),
-                  ),
-                ),
-              ],
+              ),
+            ),
+          ),
+          const Spacer(),
+          Padding(
+            padding: const EdgeInsets.all(24),
+            child: ElevatedButton(
+              onPressed: () {
+                (timeSelected != null)
+                    ? setState(() {
+                        deskSelected = null;
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => AvailableDesk(
+                              type: widget.calledFrom,
+                              time: timeSelected!,
+                              date: formattedDate,
+                            ),
+                          ),
+                        );
+                      })
+                    : setState(() {});
+              },
+              style: ElevatedButton.styleFrom(fixedSize: const Size(312, 56)),
+              child: Text(
+                'Next',
+                style: GoogleFonts.poppins(
+                    fontSize: 16, fontWeight: FontWeight.w700),
+              ),
             ),
           ),
         ],

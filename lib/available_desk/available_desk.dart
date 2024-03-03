@@ -11,7 +11,9 @@ String? deskSelected;
 int deskId = -1;
 
 class AvailableDesk extends StatefulWidget {
-  const AvailableDesk({super.key, required this.time, required this.date});
+  const AvailableDesk(
+      {super.key, required this.time, required this.date, required this.type});
+  final int type;
   final String time;
   final String date;
 
@@ -28,7 +30,8 @@ class _AvailableDeskState extends State<AvailableDesk> {
     final body = jsonEncode({
       "workspace_id": deskId,
       'name': 'Supriya Thete',
-      "booked_on": timeSelected
+      "booked_on": timeSelected,
+      'type': widget.type
     });
     final response = await http.post(url, body: body);
     if (response.statusCode == 200) {
@@ -119,7 +122,7 @@ class _AvailableDeskState extends State<AvailableDesk> {
                       ),
                     ),
                     Text(
-                      ': Wed 31 May, $timeSelected',
+                      ': ${widget.date}, $timeSelected',
                       style: GoogleFonts.poppins(
                         fontSize: 14,
                         fontWeight: FontWeight.w400,

@@ -72,7 +72,8 @@ class _HomePageState extends State<HomePage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (contex) => const DeskScreen(),
+                            builder: (contex) =>
+                                const DeskScreen(calledFrom: 1),
                           ),
                         );
                       },
@@ -105,7 +106,8 @@ class _HomePageState extends State<HomePage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (contex) => const DeskScreen(),
+                            builder: (contex) =>
+                                const DeskScreen(calledFrom: 2),
                           ),
                         );
                       },

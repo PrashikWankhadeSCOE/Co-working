@@ -219,8 +219,7 @@ class _LoginPageState extends State<LoginPage> {
                         setState(() {
                           fetch();
                         });
-                        if (formkey.currentState!.validate() &&
-                            message != "Error Occured while Authentication !") {
+                        if (formkey.currentState!.validate()) {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -232,10 +231,7 @@ class _LoginPageState extends State<LoginPage> {
                           passwordController.clear();
                           ScaffoldMessenger.of(context)
                               .showSnackBar(snackbar());
-                        } else {
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(snackbar());
-                        }
+                        } else {}
                       },
                       style: ElevatedButton.styleFrom(
                           fixedSize: const Size(312, 56)),

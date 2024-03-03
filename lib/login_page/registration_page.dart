@@ -114,9 +114,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           }
                         }
 
-                        if (value!.length > 10) {
-                          return 'Mobile no cannot be greated than 10';
-                        } else if (isNumeric(value)) {
+                        if (value!.length != 10) {
+                          return 'Mobile no should be 10 digits';
+                        }
+                        if (isNumeric(value)) {
                           return 'Should contain Digits only';
                         }
                         return null;
