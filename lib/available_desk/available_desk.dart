@@ -26,17 +26,15 @@ class _AvailableDeskState extends State<AvailableDesk> {
         "https://demo0413095.mockable.io/digitalflake/api/confirm_booking");
 
     final body = jsonEncode({
-      '"workspace_id"': '$deskId',
+      "workspace_id": deskId,
       'name': 'Supriya Thete',
-      "booked_on": "$timeSelected"
+      "booked_on": timeSelected
     });
     final response = await http.post(url, body: body);
     if (response.statusCode == 200) {
       setState(() {
-        print('set state in home');
         final data = json.decode(response.body);
         dataSubmittedmessage = data['message'];
-        print(data["message"]);
       });
     } else {
       print('Hata: ${response.statusCode}');
