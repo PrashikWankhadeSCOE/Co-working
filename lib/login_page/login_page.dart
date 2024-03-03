@@ -109,158 +109,181 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+  bool hide = true;
   @override
   Widget build(BuildContext context) {
+    final formkey = GlobalKey<FormState>();
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(
-                  height: 89,
-                ),
-                Center(child: Image.asset('assets/df_Icon_small.png')),
-                Center(
-                  child: Text(
-                    'Co-working',
+      body: Form(
+        key: formkey,
+        child: Padding(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(
+                    height: 89,
+                  ),
+                  Center(child: Image.asset('assets/df_Icon_small.png')),
+                  Center(
+                    child: Text(
+                      'Co-working',
+                      style: GoogleFonts.poppins(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 24,
+                        color: const Color.fromRGBO(0, 0, 0, 1),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 91,
+                  ),
+                  Text(
+                    'Mobile number or Email',
                     style: GoogleFonts.poppins(
                       fontWeight: FontWeight.w400,
-                      fontSize: 24,
-                      color: const Color.fromRGBO(0, 0, 0, 1),
+                      fontSize: 16,
+                      color: const Color.fromRGBO(73, 73, 73, 1),
                     ),
                   ),
-                ),
-                const SizedBox(
-                  height: 91,
-                ),
-                Text(
-                  'Mobile number or Email',
-                  style: GoogleFonts.poppins(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 16,
-                    color: const Color.fromRGBO(73, 73, 73, 1),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 10, bottom: 24),
-                  child: TextField(
-                    controller: emailController,
-                    decoration: InputDecoration(
-                      fillColor: const Color.fromRGBO(218, 218, 218, 1),
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10, bottom: 24),
+                    child: TextFormField(
+                      controller: emailController,
+                      decoration: InputDecoration(
+                        fillColor: const Color.fromRGBO(218, 218, 218, 1),
+                        filled: true,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
                       ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter data ';
+                        } else if (!value.contains('@')) {
+                          return 'Email address must contain @';
+                        }
+                        return null;
+                      },
                     ),
                   ),
-                ),
-                Text(
-                  'Password',
-                  style: GoogleFonts.poppins(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 16,
-                    color: const Color.fromRGBO(73, 73, 73, 1),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 10, bottom: 24),
-                  child: TextField(
-                    controller: passwordController,
-                    onSubmitted: (value) {
-                      setState(() {
-                        fetch();
-                      });
-                    },
-                    decoration: InputDecoration(
-                      fillColor: const Color.fromRGBO(218, 218, 218, 1),
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      suffixIcon: Padding(
-                        padding: const EdgeInsets.all(16),
-                        child: Image.asset('assets/mdi_eye.png'),
-                      ),
+                  Text(
+                    'Password',
+                    style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 16,
+                      color: const Color.fromRGBO(73, 73, 73, 1),
                     ),
                   ),
-                ),
-              ],
-            ),
-            Column(
-              children: [
-                Center(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      if (emailController.text.contains('@') &&
-                          emailController.text.isNotEmpty &&
-                          passwordController.text.isNotEmpty) {
-                        setState(() {
-                          fetch();
-                        });
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const HomePage(),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10, bottom: 24),
+                    child: TextFormField(
+                      obscureText: hide,
+                      controller: passwordController,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "Password cannot be empty";
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                        fillColor: const Color.fromRGBO(218, 218, 218, 1),
+                        filled: true,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        suffixIcon: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              hide = !hide;
+                            });
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(16),
+                            child: Image.asset('assets/mdi_eye.png'),
                           ),
-                        );
-                        setState(() {
-                          fetch();
-                        });
-                        ScaffoldMessenger.of(context).showSnackBar(snackbar());
-                      } else {
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(snackbar('Please fill proper data'));
-                      }
-                    },
-                    style: ElevatedButton.styleFrom(
-                        fixedSize: const Size(312, 56)),
-                    child: Text(
-                      'Log in',
-                      style: GoogleFonts.poppins(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 16,
+                        ),
                       ),
                     ),
                   ),
-                ),
-                Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'New user? ',
-                        style: GoogleFonts.poppins(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: const Color.fromRGBO(98, 98, 98, 1)),
-                      ),
-                      GestureDetector(
-                        onTap: () {
+                ],
+              ),
+              Column(
+                children: [
+                  Center(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          fetch();
+                        });
+                        if (formkey.currentState!.validate() &&
+                            message != "Error Occured while Authentication !") {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const RegistrationPage()),
+                              builder: (context) => const HomePage(),
+                            ),
                           );
-                        },
-                        child: Text(
-                          'Create an account',
-                          style: GoogleFonts.poppins(
-                              decoration: TextDecoration.underline,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                              color: const Color.fromRGBO(42, 29, 139, 1)),
+
+                          emailController.clear();
+                          passwordController.clear();
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(snackbar());
+                        } else {
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(snackbar());
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                          fixedSize: const Size(312, 56)),
+                      child: Text(
+                        'Log in',
+                        style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 16,
                         ),
-                      )
-                    ],
+                      ),
+                    ),
                   ),
-                )
-              ],
-            ),
-          ],
+                  Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'New user? ',
+                          style: GoogleFonts.poppins(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                              color: const Color.fromRGBO(98, 98, 98, 1)),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const RegistrationPage()),
+                            );
+                          },
+                          child: Text(
+                            'Create an account',
+                            style: GoogleFonts.poppins(
+                                decoration: TextDecoration.underline,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                                color: const Color.fromRGBO(42, 29, 139, 1)),
+                          ),
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
