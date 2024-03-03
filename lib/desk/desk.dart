@@ -29,9 +29,7 @@ class _DeskScreenState extends State<DeskScreen> {
       setState(() {
         slotsList = data["slots"];
       });
-    } else {
-      print('Error While Fetching Data of Desk Page');
-    }
+    } else {}
   }
 
   bool isfull = false;

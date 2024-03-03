@@ -21,11 +21,8 @@ class _BookingPageState extends State<BookingPage> {
     if (response.statusCode == 200) {
       setState(() {
         list = json.decode(response.body)['bookings'];
-        print(list);
       });
-    } else {
-      print('Error while recieving data');
-    }
+    } else {}
   }
 
   @override

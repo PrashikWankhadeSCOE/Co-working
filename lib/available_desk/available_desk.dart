@@ -36,9 +36,7 @@ class _AvailableDeskState extends State<AvailableDesk> {
         final data = json.decode(response.body);
         dataSubmittedmessage = data['message'];
       });
-    } else {
-      print('Hata: ${response.statusCode}');
-    }
+    } else {}
   }
 
   Future<void> fetch() async {
