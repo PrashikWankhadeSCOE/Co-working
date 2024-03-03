@@ -41,71 +41,66 @@ class _LoginPageState extends State<LoginPage> {
       message = data;
     }
     return SnackBar(
-      // margin: const EdgeInsets.all(8),
-      backgroundColor: const Color.fromRGBO(255, 255, 255, 1),
-      content: Container(
-        // margin: EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          color: const Color.fromRGBO(25, 173, 30, 1),
-        ),
-        // width: 312,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Icon(
-                Icons.check_circle,
-                color: Colors.white,
-                size: 24,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  (message == "Error Occured while Authentication !" ||
-                          message == 'Please fill proper data')
-                      ? Text(
-                          'Error',
-                          style: GoogleFonts.poppins(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 12,
-                            color: const Color.fromRGBO(255, 255, 255, 1),
-                          ),
-                        )
-                      : Text(
-                          'Success',
-                          style: GoogleFonts.poppins(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 12,
-                            color: const Color.fromRGBO(255, 255, 255, 1),
-                          ),
-                        ),
-                  Text(
-                    message,
-                    style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 12,
-                      color: const Color.fromRGBO(255, 255, 255, 1),
-                    ),
+      backgroundColor: const Color.fromRGBO(25, 173, 30, 1),
+      duration: const Duration(milliseconds: 1500),
+      padding: const EdgeInsets.all(8),
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      content: Row(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: (message == "Error Occured while Authentication !" ||
+                    message == 'Please fill proper data')
+                ? const Icon(
+                    Icons.cancel_outlined,
+                    color: Colors.white,
+                    size: 24,
+                  )
+                : const Icon(
+                    Icons.check_circle,
+                    color: Colors.white,
+                    size: 24,
                   ),
-                ],
-              ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                (message == "Error Occured while Authentication !" ||
+                        message == 'Please fill proper data')
+                    ? Text(
+                        'Error',
+                        style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 12,
+                          color: const Color.fromRGBO(255, 255, 255, 1),
+                        ),
+                      )
+                    : Text(
+                        'Success',
+                        style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 12,
+                          color: const Color.fromRGBO(255, 255, 255, 1),
+                        ),
+                      ),
+                Text(
+                  message,
+                  style: GoogleFonts.poppins(
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
+                    color: const Color.fromRGBO(255, 255, 255, 1),
+                  ),
+                ),
+              ],
             ),
-            GestureDetector(
-              onTap: () {},
-              child: const Icon(
-                Icons.close,
-                color: Colors.white,
-                size: 24,
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
+      showCloseIcon: true,
+      closeIconColor: Colors.white,
     );
   }
 
@@ -214,16 +209,21 @@ class _LoginPageState extends State<LoginPage> {
                       setState(() {
                         fetch();
                       });
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const HomePage(),
-                        ),
-                      );
+                      if (message == "Error Occured while Authentication !") {
+                        ScaffoldMessenger.of(context).showSnackBar(snackbar());
+                      } else {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const HomePage(),
+                          ),
+                        );
 
-                      emailController.clear();
-                      passwordController.clear();
-                      ScaffoldMessenger.of(context).showSnackBar(snackbar());
+                        emailController.clear();
+                        passwordController.clear();
+
+                        ScaffoldMessenger.of(context).showSnackBar(snackbar());
+                      }
                     }
                   },
                   style:

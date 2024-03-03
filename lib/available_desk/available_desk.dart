@@ -69,13 +69,23 @@ class _AvailableDeskState extends State<AvailableDesk> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text(
-            'Confirm booking',
-            style: GoogleFonts.poppins(
-              fontSize: 12,
-              fontWeight: FontWeight.w400,
-              color: const Color.fromRGBO(73, 73, 73, 1),
-            ),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Confirm booking',
+                style: GoogleFonts.poppins(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w400,
+                  color: const Color.fromRGBO(73, 73, 73, 1),
+                ),
+              ),
+              IconButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  icon: const Icon(Icons.cancel))
+            ],
           ),
           content: Column(
             mainAxisSize: MainAxisSize.min,
@@ -140,75 +150,7 @@ class _AvailableDeskState extends State<AvailableDesk> {
                   onPressed: () {
                     Navigator.of(context).pop();
                     Navigator.of(context).pop();
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      // margin: const EdgeInsets.all(8),
-                      backgroundColor: const Color.fromRGBO(255, 255, 255, 1),
-                      content: Container(
-                        // margin: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          color: const Color.fromRGBO(25, 173, 30, 1),
-                        ),
-                        // width: 312,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            const Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Icon(
-                                Icons.check_circle,
-                                color: Colors.white,
-                                size: 24,
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  (dataSubmittedmessage == "Data not recieved")
-                                      ? Text(
-                                          'Error',
-                                          style: GoogleFonts.poppins(
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 12,
-                                            color: const Color.fromRGBO(
-                                                255, 255, 255, 1),
-                                          ),
-                                        )
-                                      : Text(
-                                          'Success',
-                                          style: GoogleFonts.poppins(
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 12,
-                                            color: const Color.fromRGBO(
-                                                255, 255, 255, 1),
-                                          ),
-                                        ),
-                                  Text(
-                                    dataSubmittedmessage,
-                                    style: GoogleFonts.poppins(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 12,
-                                      color: const Color.fromRGBO(
-                                          255, 255, 255, 1),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {},
-                              child: const Icon(
-                                Icons.close,
-                                color: Colors.white,
-                                size: 24,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ));
+                    mySnackBar(context);
                   },
                   style:
                       ElevatedButton.styleFrom(fixedSize: const Size(159, 34)),
@@ -224,6 +166,77 @@ class _AvailableDeskState extends State<AvailableDesk> {
         );
       },
     );
+  }
+
+  ScaffoldFeatureController<SnackBar, SnackBarClosedReason> mySnackBar2(
+      BuildContext context) {
+    return ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      backgroundColor: const Color.fromRGBO(25, 173, 30, 1),
+      content: Text(dataSubmittedmessage),
+      duration: const Duration(milliseconds: 1500),
+      padding: const EdgeInsets.all(8),
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+    ));
+  }
+
+  ScaffoldFeatureController<SnackBar, SnackBarClosedReason> mySnackBar(
+      BuildContext context) {
+    return ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      backgroundColor: const Color.fromRGBO(25, 173, 30, 1),
+      duration: const Duration(milliseconds: 1500),
+      padding: const EdgeInsets.all(8),
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      content: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Icon(
+              Icons.check_circle,
+              color: Colors.white,
+              size: 24,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                (dataSubmittedmessage == "Data not recieved")
+                    ? Text(
+                        'Error',
+                        style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 12,
+                          color: const Color.fromRGBO(255, 255, 255, 1),
+                        ),
+                      )
+                    : Text(
+                        'Success',
+                        style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 12,
+                          color: const Color.fromRGBO(255, 255, 255, 1),
+                        ),
+                      ),
+                Text(
+                  dataSubmittedmessage,
+                  style: GoogleFonts.poppins(
+                    fontWeight: FontWeight.w400,
+                    fontSize: 12,
+                    color: const Color.fromRGBO(255, 255, 255, 1),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+      showCloseIcon: true,
+      closeIconColor: Colors.white,
+    ));
   }
 
   @override
