@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
 
 class BookingPage extends StatefulWidget {
   const BookingPage({super.key});
@@ -11,6 +14,26 @@ class BookingPage extends StatefulWidget {
 List list = [];
 
 class _BookingPageState extends State<BookingPage> {
+  Future<void> fetchdetails() async {
+    final url = Uri.parse(
+        'https://demo0413095.mockable.io/digitalflake/api/get_bookings');
+    final response = await http.get(url);
+    if (response.statusCode == 200) {
+      setState(() {
+        list = json.decode(response.body)['bookings'];
+        print(list);
+      });
+    } else {
+      print('Error while recieving data');
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchdetails();
+  }
+
   Widget myCard(int index) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -101,7 +124,7 @@ class _BookingPageState extends State<BookingPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      list[index].deskId.toString(),
+                      list[index]['workspace_id'].toString(),
                       style: GoogleFonts.poppins(
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
@@ -109,7 +132,7 @@ class _BookingPageState extends State<BookingPage> {
                       ),
                     ),
                     Text(
-                      list[index].name,
+                      list[index]["workspace_name"],
                       style: GoogleFonts.poppins(
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
@@ -117,7 +140,7 @@ class _BookingPageState extends State<BookingPage> {
                       ),
                     ),
                     Text(
-                      list[index].date,
+                      list[index]["booking_date"],
                       style: GoogleFonts.poppins(
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
