@@ -11,6 +11,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  bool selected1 = true;
+  bool selected2 = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,6 +71,9 @@ class _HomePageState extends State<HomePage> {
                   onTap: () {
                     setState(
                       () {
+                        selected1 = true;
+                        selected2 = !selected1;
+
                         timeSelected = null;
                         Navigator.push(
                           context,
@@ -83,7 +89,9 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       Container(
                         decoration: BoxDecoration(
-                          color: const Color.fromRGBO(77, 96, 209, 1),
+                          color: (selected1)
+                              ? const Color.fromRGBO(77, 96, 209, 1)
+                              : const Color.fromRGBO(199, 207, 252, 1),
                           borderRadius: BorderRadius.circular(15),
                         ),
                         height: 147,
@@ -102,6 +110,8 @@ class _HomePageState extends State<HomePage> {
                   onTap: () {
                     setState(
                       () {
+                        selected2 = true;
+                        selected1 = !selected2;
                         timeSelected = null;
                         Navigator.push(
                           context,
@@ -117,7 +127,9 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       Container(
                         decoration: BoxDecoration(
-                          color: const Color.fromRGBO(77, 96, 209, 1),
+                          color: (selected2)
+                              ? const Color.fromRGBO(77, 96, 209, 1)
+                              : const Color.fromRGBO(199, 207, 252, 1),
                           borderRadius: BorderRadius.circular(15),
                         ),
                         height: 147,
