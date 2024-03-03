@@ -36,7 +36,7 @@ class _DeskScreenState extends State<DeskScreen> {
 
   bool isfull = false;
 
-  String formattedDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
+  String formattedDate = DateFormat('EEEE d MMM').format(DateTime.now());
 
   @override
   void initState() {
@@ -70,7 +70,7 @@ class _DeskScreenState extends State<DeskScreen> {
             lastDate: DateTime(2024, 12, 31),
             onDateChange: (selectedDate) {
               setState(() {
-                formattedDate = DateFormat('yyyy-MM-dd').format(selectedDate);
+                formattedDate = DateFormat('EEEE d MMM').format(selectedDate);
               });
             },
           ),
