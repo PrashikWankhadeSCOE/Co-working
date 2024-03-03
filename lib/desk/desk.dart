@@ -20,6 +20,8 @@ List slotsList = [];
 String? timeSelected;
 
 class _DeskScreenState extends State<DeskScreen> {
+  bool dataRecieved = false;
+
   Future<void> fetchData() async {
     final url = Uri.parse(
       'https://demo0413095.mockable.io/digitalflake/api/get_slots',
@@ -30,6 +32,7 @@ class _DeskScreenState extends State<DeskScreen> {
       final data = json.decode(response.body);
       setState(() {
         slotsList = data["slots"];
+        dataRecieved = true;
       });
     } else {}
   }
@@ -76,17 +79,21 @@ class _DeskScreenState extends State<DeskScreen> {
           ),
           Padding(
             padding: const EdgeInsets.all(24),
-            child: Wrap(
-              runSpacing: 10,
-              spacing: 8,
-              children: List.generate(
-                slotsList.length,
-                (index) => TimeSlot(
-                  isfull: slotsList[index]["slot_active"],
-                  time: slotsList[index]["slot_name"],
-                ),
-              ),
-            ),
+            child: (dataRecieved)
+                ? Wrap(
+                    runSpacing: 10,
+                    spacing: 8,
+                    children: List.generate(
+                      slotsList.length,
+                      (index) => TimeSlot(
+                        isfull: slotsList[index]["slot_active"],
+                        time: slotsList[index]["slot_name"],
+                      ),
+                    ),
+                  )
+                : const Center(
+                    child: CircularProgressIndicator(),
+                  ),
           ),
           const Spacer(),
           Padding(

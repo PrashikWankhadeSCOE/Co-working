@@ -14,6 +14,7 @@ class BookingPage extends StatefulWidget {
 List list = [];
 
 class _BookingPageState extends State<BookingPage> {
+  bool dataRecieved = false;
   Future<void> fetchdetails() async {
     final url = Uri.parse(
         'https://demo0413095.mockable.io/digitalflake/api/get_bookings');
@@ -21,6 +22,7 @@ class _BookingPageState extends State<BookingPage> {
     if (response.statusCode == 200) {
       setState(() {
         list = json.decode(response.body)['bookings'];
+        dataRecieved = true;
       });
     } else {}
   }
@@ -173,7 +175,11 @@ class _BookingPageState extends State<BookingPage> {
         child: ListView.builder(
             itemCount: list.length,
             itemBuilder: (BuildContext context, index) {
-              return myCard(index);
+              return (dataRecieved)
+                  ? myCard(index)
+                  : const Center(
+                      child: RefreshProgressIndicator(),
+                    );
             }),
       ),
     );

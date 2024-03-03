@@ -22,6 +22,7 @@ class AvailableDesk extends StatefulWidget {
 }
 
 class _AvailableDeskState extends State<AvailableDesk> {
+  bool dataRecieved = false;
   String dataSubmittedmessage = "Data not recieved";
   Future<void> pushData() async {
     final url = Uri.parse(
@@ -51,6 +52,8 @@ class _AvailableDeskState extends State<AvailableDesk> {
       final data = json.decode(response.body);
       setState(() {
         desklist = data["availability"];
+
+        dataRecieved = true;
       });
     }
   }
@@ -255,17 +258,21 @@ class _AvailableDeskState extends State<AvailableDesk> {
                     ),
                   ),
                 ),
-                Wrap(
-                  spacing: 12,
-                  runSpacing: 12,
-                  children: List.generate(
-                    desklist.length,
-                    (index) => Tables(
-                        isbooked: desklist[index]["workspace_active"],
-                        number: desklist[index]['workspace_name'],
-                        id: desklist[index]['workspace_id']),
-                  ),
-                ),
+                (dataRecieved)
+                    ? Wrap(
+                        spacing: 12,
+                        runSpacing: 12,
+                        children: List.generate(
+                          desklist.length,
+                          (index) => Tables(
+                              isbooked: desklist[index]["workspace_active"],
+                              number: desklist[index]['workspace_name'],
+                              id: desklist[index]['workspace_id']),
+                        ),
+                      )
+                    : const Center(
+                        child: CircularProgressIndicator(),
+                      ),
               ],
             ),
             Center(
