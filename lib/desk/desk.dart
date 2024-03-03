@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:coworking/available_desk/available_desk.dart';
+import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
@@ -55,51 +56,68 @@ class _DeskScreenState extends State<DeskScreen> {
         foregroundColor: const Color.fromRGBO(0, 0, 0, 1),
         backgroundColor: Colors.white,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Center(
-              child: Wrap(
-                crossAxisAlignment: WrapCrossAlignment.center,
-                runSpacing: 10,
-                spacing: 8,
-                children: List.generate(
-                  slotsList.length,
-                  (index) => TimeSlot(
-                    isfull: slotsList[index]["slot_active"],
-                    time: slotsList[index]["slot_name"],
+      body: Column(
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          Container(
+            color: Colors.amber,
+            height: 10,
+          ),
+          EasyInfiniteDateTimeLine(
+            firstDate: DateTime(2023),
+            focusDate: DateTime.now(),
+            lastDate: DateTime(2024, 12, 31),
+            onDateChange: (selectedDate) {
+              setState(() {});
+            },
+          ),
+          Padding(
+            padding: const EdgeInsets.all(24),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
+                  child: Wrap(
+                    runSpacing: 10,
+                    spacing: 8,
+                    children: List.generate(
+                      slotsList.length,
+                      (index) => TimeSlot(
+                        isfull: slotsList[index]["slot_active"],
+                        time: slotsList[index]["slot_name"],
+                      ),
+                    ),
                   ),
                 ),
-              ),
+                ElevatedButton(
+                  onPressed: () {
+                    (timeSelected != null)
+                        ? setState(() {
+                            deskSelected = null;
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => AvailableDesk(
+                                  time: timeSelected!,
+                                  date: 'Wed 31 May',
+                                ),
+                              ),
+                            );
+                          })
+                        : setState(() {});
+                  },
+                  style:
+                      ElevatedButton.styleFrom(fixedSize: const Size(312, 56)),
+                  child: Text(
+                    'Next',
+                    style: GoogleFonts.poppins(
+                        fontSize: 16, fontWeight: FontWeight.w700),
+                  ),
+                ),
+              ],
             ),
-            ElevatedButton(
-              onPressed: () {
-                (timeSelected != null)
-                    ? setState(() {
-                        deskSelected = null;
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => AvailableDesk(
-                              time: timeSelected!,
-                              date: 'Wed 31 May',
-                            ),
-                          ),
-                        );
-                      })
-                    : setState(() {});
-              },
-              style: ElevatedButton.styleFrom(fixedSize: const Size(312, 56)),
-              child: Text(
-                'Next',
-                style: GoogleFonts.poppins(
-                    fontSize: 16, fontWeight: FontWeight.w700),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
