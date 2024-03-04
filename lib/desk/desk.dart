@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:coworking/available_desk/available_desk.dart';
-import 'package:easy_date_timeline/easy_date_timeline.dart';
+import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
@@ -39,7 +39,7 @@ class _DeskScreenState extends State<DeskScreen> {
 
   bool isfull = false;
 
-  String formattedDate = DateFormat('EEEE d MMM').format(DateTime.now());
+  String formattedDate = DateFormat('E d MMM').format(DateTime.now());
 
   @override
   void initState() {
@@ -67,13 +67,14 @@ class _DeskScreenState extends State<DeskScreen> {
           const SizedBox(
             height: 10,
           ),
-          EasyInfiniteDateTimeLine(
-            firstDate: DateTime(2023),
-            focusDate: DateTime.now(),
-            lastDate: DateTime(2024, 12, 31),
-            onDateChange: (selectedDate) {
+          DatePicker(
+            DateTime.now(),
+            initialSelectedDate: DateTime.now(),
+            selectionColor: const Color.fromRGBO(77, 96, 209, 1),
+            selectedTextColor: Colors.white,
+            onDateChange: (date) {
               setState(() {
-                formattedDate = DateFormat('EEEE d MMM').format(selectedDate);
+                formattedDate = DateFormat('E d MMM').format(date);
               });
             },
           ),
