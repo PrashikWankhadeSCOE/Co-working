@@ -21,6 +21,9 @@ class _HomePageState extends State<HomePage> {
         padding: const EdgeInsets.all(25),
         child: Column(
           children: [
+            const SizedBox(
+              height: 30,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -66,6 +69,7 @@ class _HomePageState extends State<HomePage> {
               height: 60,
             ),
             Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(

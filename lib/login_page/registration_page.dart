@@ -163,7 +163,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     ),
                   ],
                 ),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.25),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.22),
                 Center(
                   child: ElevatedButton(
                     onPressed: () {

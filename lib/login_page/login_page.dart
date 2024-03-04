@@ -205,7 +205,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 // const Spacer(),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.30),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.27),
 
                 Center(
                   child: ElevatedButton(
