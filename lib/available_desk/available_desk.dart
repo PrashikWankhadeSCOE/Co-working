@@ -93,24 +93,30 @@ class _AvailableDeskState extends State<AvailableDesk> {
             children: [
               Row(
                 children: [
-                  Text(
-                    'Desk ID',
-                    style: GoogleFonts.poppins(
-                      fontSize: 10,
-                      fontWeight: FontWeight.w400,
-                      color: const Color.fromRGBO(148, 148, 148, 1),
-                    ),
-                  ),
-                  Text(
-                    ': $deskId',
-                    style: GoogleFonts.poppins(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color: const Color.fromRGBO(73, 73, 73, 1),
+                  RichText(
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                          text: 'Desk ID ',
+                          style: GoogleFonts.poppins(
+                            fontSize: 10,
+                            fontWeight: FontWeight.w400,
+                            color: const Color.fromRGBO(148, 148, 148, 1),
+                          ),
+                        ),
+                        TextSpan(
+                          text: ': $deskId',
+                          style: GoogleFonts.poppins(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            color: const Color.fromRGBO(73, 73, 73, 1),
+                          ),
+                        )
+                      ],
                     ),
                   ),
                   const SizedBox(
-                    width: 67,
+                    width: 90,
                   ),
                   Text(
                     'Desk $deskSelected',
@@ -124,25 +130,27 @@ class _AvailableDeskState extends State<AvailableDesk> {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 13),
-                child: Row(
-                  children: [
-                    Text(
-                      'Slot ',
-                      style: GoogleFonts.poppins(
-                        fontSize: 10,
-                        fontWeight: FontWeight.w400,
-                        color: const Color.fromRGBO(148, 148, 148, 1),
+                child: RichText(
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                        text: 'Slot ',
+                        style: GoogleFonts.poppins(
+                          fontSize: 10,
+                          fontWeight: FontWeight.w400,
+                          color: const Color.fromRGBO(148, 148, 148, 1),
+                        ),
                       ),
-                    ),
-                    Text(
-                      ': ${widget.date}, $timeSelected',
-                      style: GoogleFonts.poppins(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        color: const Color.fromRGBO(73, 73, 73, 1),
-                      ),
-                    ),
-                  ],
+                      TextSpan(
+                        text: ': ${widget.date}, $timeSelected',
+                        style: GoogleFonts.poppins(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: const Color.fromRGBO(73, 73, 73, 1),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
               Center(
@@ -199,37 +207,39 @@ class _AvailableDeskState extends State<AvailableDesk> {
               size: 24,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                (dataSubmittedmessage == "Data not recieved")
-                    ? Text(
-                        'Error',
-                        style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 12,
-                          color: const Color.fromRGBO(255, 255, 255, 1),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  (dataSubmittedmessage == "Data not recieved")
+                      ? Text(
+                          'Error',
+                          style: GoogleFonts.poppins(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 12,
+                            color: const Color.fromRGBO(255, 255, 255, 1),
+                          ),
+                        )
+                      : Text(
+                          'Success',
+                          style: GoogleFonts.poppins(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 12,
+                            color: const Color.fromRGBO(255, 255, 255, 1),
+                          ),
                         ),
-                      )
-                    : Text(
-                        'Success',
-                        style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 12,
-                          color: const Color.fromRGBO(255, 255, 255, 1),
-                        ),
-                      ),
-                Text(
-                  dataSubmittedmessage,
-                  style: GoogleFonts.poppins(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 12,
-                    color: const Color.fromRGBO(255, 255, 255, 1),
+                  Text(
+                    dataSubmittedmessage,
+                    style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 12,
+                      color: const Color.fromRGBO(255, 255, 255, 1),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ],
