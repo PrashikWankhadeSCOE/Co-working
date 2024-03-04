@@ -67,81 +67,93 @@ class _HomePageState extends State<HomePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                GestureDetector(
-                  onTap: () {
-                    setState(
-                      () {
-                        selected1 = true;
-                        selected2 = !selected1;
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(
+                        () {
+                          selected1 = true;
+                          selected2 = !selected1;
 
-                        timeSelected = null;
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (contex) =>
-                                const DeskScreen(calledFrom: 1),
+                          timeSelected = null;
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (contex) =>
+                                  const DeskScreen(calledFrom: 1),
+                            ),
+                          );
+                        },
+                      );
+                    },
+                    child: Column(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            color: (selected1)
+                                ? const Color.fromRGBO(77, 96, 209, 1)
+                                : const Color.fromRGBO(199, 207, 252, 1),
+                            borderRadius: BorderRadius.circular(15),
                           ),
-                        );
-                      },
-                    );
-                  },
-                  child: Column(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          color: (selected1)
-                              ? const Color.fromRGBO(77, 96, 209, 1)
-                              : const Color.fromRGBO(199, 207, 252, 1),
-                          borderRadius: BorderRadius.circular(15),
+                          height: 147,
+                          width: 147,
+                          child: Image.asset('assets/book_work_station.png'),
                         ),
-                        height: 147,
-                        width: 147,
-                        child: Image.asset('assets/book_work_station.png'),
-                      ),
-                      Text(
-                        'Book Work Station',
-                        style: GoogleFonts.poppins(
-                            fontSize: 20, fontWeight: FontWeight.w400),
-                      ),
-                    ],
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: Text(
+                            'Book Work Station',
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.poppins(
+                                fontSize: 20, fontWeight: FontWeight.w400),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-                GestureDetector(
-                  onTap: () {
-                    setState(
-                      () {
-                        selected2 = true;
-                        selected1 = !selected2;
-                        timeSelected = null;
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (contex) =>
-                                const DeskScreen(calledFrom: 2),
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(
+                        () {
+                          selected2 = true;
+                          selected1 = !selected2;
+                          timeSelected = null;
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (contex) =>
+                                  const DeskScreen(calledFrom: 2),
+                            ),
+                          );
+                        },
+                      );
+                    },
+                    child: Column(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            color: (selected2)
+                                ? const Color.fromRGBO(77, 96, 209, 1)
+                                : const Color.fromRGBO(199, 207, 252, 1),
+                            borderRadius: BorderRadius.circular(15),
                           ),
-                        );
-                      },
-                    );
-                  },
-                  child: Column(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          color: (selected2)
-                              ? const Color.fromRGBO(77, 96, 209, 1)
-                              : const Color.fromRGBO(199, 207, 252, 1),
-                          borderRadius: BorderRadius.circular(15),
+                          height: 147,
+                          width: 147,
+                          child: Image.asset('assets/meeting_room.png'),
                         ),
-                        height: 147,
-                        width: 147,
-                        child: Image.asset('assets/meeting_room.png'),
-                      ),
-                      Text(
-                        'Meeting room',
-                        style: GoogleFonts.poppins(
-                            fontSize: 20, fontWeight: FontWeight.w400),
-                      ),
-                    ],
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: Text(
+                            'Meeting room',
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.poppins(
+                                fontSize: 20, fontWeight: FontWeight.w400),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 )
               ],
