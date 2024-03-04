@@ -5,7 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 
 class BookingPage extends StatefulWidget {
-  const BookingPage({super.key});
+  const BookingPage({super.key, required this.type});
+  final int type;
 
   @override
   State<BookingPage> createState() => _BookingPageState();
@@ -53,7 +54,7 @@ class _BookingPageState extends State<BookingPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Desk Id',
+                          (widget.type == 1) ? 'Desk Id' : 'Room Id',
                           style: GoogleFonts.poppins(
                             fontSize: 12,
                             fontWeight: FontWeight.w400,

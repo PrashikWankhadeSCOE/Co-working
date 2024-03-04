@@ -97,7 +97,7 @@ class _AvailableDeskState extends State<AvailableDesk> {
                     text: TextSpan(
                       children: [
                         TextSpan(
-                          text: 'Desk ID ',
+                          text: (widget.type == 1) ? 'Desk ID ' : 'Room Id',
                           style: GoogleFonts.poppins(
                             fontSize: 10,
                             fontWeight: FontWeight.w400,
@@ -119,7 +119,9 @@ class _AvailableDeskState extends State<AvailableDesk> {
                     width: 90,
                   ),
                   Text(
-                    'Desk $deskSelected',
+                    (widget.type == 1)
+                        ? 'Desk $deskSelected'
+                        : 'Room No.$deskSelected',
                     style: GoogleFonts.poppins(
                       fontSize: 14,
                       fontWeight: FontWeight.w400,
@@ -160,8 +162,9 @@ class _AvailableDeskState extends State<AvailableDesk> {
                     Navigator.of(context).pop();
                     mySnackBar(context);
                   },
-                  style:
-                      ElevatedButton.styleFrom(fixedSize: const Size(159, 34)),
+                  style: ElevatedButton.styleFrom(
+                      fixedSize: const Size(159, 34),
+                      backgroundColor: const Color.fromRGBO(81, 103, 235, 1)),
                   child: Text(
                     'Confirm',
                     style: GoogleFonts.poppins(
@@ -174,18 +177,6 @@ class _AvailableDeskState extends State<AvailableDesk> {
         );
       },
     );
-  }
-
-  ScaffoldFeatureController<SnackBar, SnackBarClosedReason> mySnackBar2(
-      BuildContext context) {
-    return ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      backgroundColor: const Color.fromRGBO(25, 173, 30, 1),
-      content: Text(dataSubmittedmessage),
-      duration: const Duration(milliseconds: 1500),
-      padding: const EdgeInsets.all(8),
-      behavior: SnackBarBehavior.floating,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-    ));
   }
 
   ScaffoldFeatureController<SnackBar, SnackBarClosedReason> mySnackBar(
@@ -254,7 +245,7 @@ class _AvailableDeskState extends State<AvailableDesk> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Available desks',
+          (widget.type == 1) ? 'Available desks' : 'Available rooms',
           style: GoogleFonts.poppins(
             fontWeight: FontWeight.w400,
             fontSize: 20,
@@ -310,7 +301,9 @@ class _AvailableDeskState extends State<AvailableDesk> {
                     setState(() {});
                   }
                 },
-                style: ElevatedButton.styleFrom(fixedSize: const Size(312, 56)),
+                style: ElevatedButton.styleFrom(
+                    fixedSize: const Size(312, 56),
+                    backgroundColor: const Color.fromRGBO(81, 103, 235, 1)),
                 child: Text(
                   'Book Desk',
                   style: GoogleFonts.poppins(

@@ -177,7 +177,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       } else {}
                     },
                     style: ElevatedButton.styleFrom(
-                        fixedSize: const Size(312, 56)),
+                        fixedSize: const Size(312, 56),
+                        backgroundColor: const Color.fromRGBO(81, 103, 235, 1)),
                     child: Text(
                       'Create an account',
                       style: GoogleFonts.poppins(

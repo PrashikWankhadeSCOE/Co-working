@@ -117,7 +117,9 @@ class _DeskScreenState extends State<DeskScreen> {
                       })
                     : setState(() {});
               },
-              style: ElevatedButton.styleFrom(fixedSize: const Size(312, 56)),
+              style: ElevatedButton.styleFrom(
+                  fixedSize: const Size(312, 56),
+                  backgroundColor: const Color.fromRGBO(81, 103, 235, 1)),
               child: Text(
                 'Next',
                 style: GoogleFonts.poppins(

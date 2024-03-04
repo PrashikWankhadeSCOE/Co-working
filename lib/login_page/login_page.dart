@@ -209,9 +209,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: ElevatedButton(
                     onPressed: () async {
                       if (formkey.currentState!.validate()) {
-                        // setState(() {
                         await fetch();
-                        // });
                         if (message == "Error Occured while Authentication !") {
                           ScaffoldMessenger.of(context)
                               .showSnackBar(snackbar());
@@ -232,7 +230,8 @@ class _LoginPageState extends State<LoginPage> {
                       }
                     },
                     style: ElevatedButton.styleFrom(
-                        fixedSize: const Size(312, 56)),
+                        fixedSize: const Size(312, 56),
+                        backgroundColor: const Color.fromRGBO(81, 103, 235, 1)),
                     child: Text(
                       'Log in',
                       style: GoogleFonts.poppins(
